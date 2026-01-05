@@ -3,7 +3,10 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#4f46e5">
     <title>Retail Media Creative Builder | AI Ad Generator</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -16,9 +19,10 @@
         <div class="container">
             <a href="index.html" class="logo">
                 <div class="logo-icon"></div>
-                CreativeBuilder AI
+                <span class="logo-text">CreativeBuilder AI</span>
             </a>
-            <div class="nav-links">
+            <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">☰</button>
+            <div class="nav-links" id="navLinks">
                 <a href="#how-it-works">How it Works</a>
                 <a href="#features">Features</a>
                 <a href="tool.html" class="btn btn-primary">Try Demo</a>

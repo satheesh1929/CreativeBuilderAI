@@ -2,6 +2,26 @@
  * Retail Media Creative Builder - Core Logic
  */
 
+// Mobile Menu Handler
+document.addEventListener('DOMContentLoaded', function() {
+    const menuToggle = document.getElementById('mobileMenuToggle');
+    const navLinks = document.getElementById('navLinks');
+    
+    if (menuToggle) {
+        menuToggle.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+        });
+        
+        // Close menu when link is clicked
+        const links = navLinks.querySelectorAll('a');
+        links.forEach(link => {
+            link.addEventListener('click', function() {
+                navLinks.classList.remove('active');
+            });
+        });
+    }
+});
+
 // State Management
 const state = {
     file: null,
@@ -44,8 +64,12 @@ const elements = {
 
 // --- Initialization ---
 document.addEventListener('DOMContentLoaded', () => {
-    initDropzone();
-    initInputs();
+    if (elements.dropzone) {
+        initDropzone();
+    }
+    if (elements.brandInput) {
+        initInputs();
+    }
 });
 
 function initInputs() {

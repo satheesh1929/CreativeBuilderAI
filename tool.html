@@ -3,19 +3,31 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#4f46e5">
     <title>Builder | Retail Media Creative AI</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         /* Tool specific overrides */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        
         body {
             overflow: hidden;
+            -webkit-user-select: none;
+            user-select: none;
         }
 
         /* Fix full height app */
         .navbar {
             height: 60px;
+            flex-shrink: 0;
         }
 
         .sidebar {
@@ -23,12 +35,14 @@
             border-right: 1px solid var(--border);
             padding: 1.5rem;
             overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
         }
 
         .main-canvas {
             background: #f1f5f9;
             padding: 2rem;
             overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
             display: flex;
             flex-direction: column;
             gap: 2rem;
@@ -59,9 +73,10 @@
             z-index: 10;
         }
 
-        .compliance-tooltip:hover::after {
-            opacity: 1;
-            visibility: visible;
+        @media (max-width: 768px) {
+            .compliance-tooltip::after {
+                display: none;
+            }
         }
     </style>
 </head>
