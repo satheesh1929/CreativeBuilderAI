@@ -1,0 +1,656 @@
+:root {
+    /* Brand Colors */
+    --primary: #4f46e5;
+    /* Indigo 600 */
+    --primary-hover: #4338ca;
+    /* Indigo 700 */
+    --secondary: #ec4899;
+    /* Pink 500 */
+    --accent: #8b5cf6;
+    /* Violet 500 */
+
+    /* Neutrals */
+    --bg-body: #f8fafc;
+    /* Slate 50 */
+    --bg-card: #ffffff;
+    --text-main: #0f172a;
+    /* Slate 900 */
+    --text-muted: #64748b;
+    /* Slate 500 */
+    --border: #e2e8f0;
+    /* Slate 200 */
+
+    /* Status */
+    --success: #10b981;
+    --warning: #f59e0b;
+    --error: #ef4444;
+
+    /* Spacing */
+    --container: 1200px;
+    --nav-height: 70px;
+}
+
+/* Reset & Base */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: var(--bg-body);
+    color: var(--text-main);
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+/* Typography */
+h1,
+h2,
+h3,
+h4 {
+    line-height: 1.2;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+h1 {
+    font-size: 3.5rem;
+}
+
+h2 {
+    font-size: 2.5rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+}
+
+p {
+    font-size: 1.125rem;
+    color: var(--text-muted);
+}
+
+/* Components */
+.container {
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: white;
+    box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.2);
+}
+
+.btn-primary:hover {
+    background: var(--primary-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 8px -1px rgba(79, 70, 229, 0.3);
+}
+
+.btn-outline {
+    background: transparent;
+    border: 2px solid var(--border);
+    color: var(--text-main);
+}
+
+.btn-outline:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+.badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.badge-new {
+    background: #eff6ff;
+    color: var(--primary);
+}
+
+/* Navbar */
+.navbar {
+    height: var(--nav-height);
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar .container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    font-weight: 800;
+    font-size: 1.25rem;
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.logo-icon {
+    width: 24px;
+    height: 24px;
+    background: var(--primary);
+    border-radius: 6px;
+}
+
+/* Landing Page Sections */
+section {
+    padding: 5rem 0;
+}
+
+/* Hero */
+.hero {
+    text-align: center;
+    padding: 8rem 0 5rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1000px;
+    height: 1000px;
+    background: radial-gradient(circle, rgba(79, 70, 229, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
+    z-index: -1;
+}
+
+.hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.hero h1 {
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, var(--text-main) 0%, var(--primary) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero p {
+    margin-bottom: 2.5rem;
+    font-size: 1.25rem;
+}
+
+.hero-image-wrapper {
+    margin-top: 4rem;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    border: 1px solid var(--border);
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    animation: heroImageSlide 1s ease-out forwards;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.hero-image-wrapper img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+@keyframes heroImageSlide {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Steps / How it works */
+.steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.step-card {
+    background: var(--bg-card);
+    padding: 2rem;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    transition: transform 0.2s ease;
+}
+
+.step-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary);
+}
+
+.step-number {
+    width: 40px;
+    height: 40px;
+    background: #eef2ff;
+    color: var(--primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.step-title {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--text-main);
+}
+
+/* Features */
+.features-section {
+    background: white;
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+.feature-list {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.feature-item {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+}
+
+.feature-icon {
+    color: var(--success);
+    margin-top: 0.25rem;
+}
+
+/* Tool Layout (Shared) */
+.tool-layout {
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    height: calc(100vh - var(--nav-height));
+    overflow: hidden;
+}
+
+@media (max-width: 768px) {
+    .tool-layout {
+        grid-template-columns: 1fr;
+        height: auto;
+        overflow: visible;
+    }
+}
+
+/* Tool Component Styles */
+
+/* Dropzone Active State */
+#dropzone.dragover {
+    background-color: #eff6ff;
+    border-color: var(--primary);
+}
+
+/* Loading Overlay */
+.loader-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.9);
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(5px);
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid var(--border);
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.loading-text {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.loading-subtext {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+}
+
+/* Results Grid */
+.results-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+}
+
+.creative-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    padding-bottom: 4rem;
+}
+
+.creative-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.creative-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    border-color: var(--primary);
+}
+
+.card-preview {
+    background: #f8fafc;
+    /* Canvas background fallback */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    /* Aspect ratio gets handled by the canvas size usually, but we can enforce container */
+    min-height: 300px;
+}
+
+.card-footer {
+    padding: 1rem;
+    border-top: 1px solid var(--border);
+}
+
+.card-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.size-tag {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    background: #f1f5f9;
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+.compliance-status {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.8rem;
+    color: var(--success);
+    font-weight: 600;
+}
+
+.action-row {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.btn-sm {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+    flex: 1;
+    justify-content: center;
+}
+
+/* Canvas Simulation Styles */
+/* These classes are applied IN the canvas generation logic or DOM overlay */
+.ad-container {
+    position: relative;
+    background: white;
+    overflow: hidden;
+    /* User selection logic will apply explicit width/height inline */
+}
+
+.ad-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+}
+
+.ad-product {
+    position: absolute;
+    z-index: 10;
+    object-fit: contain;
+    /* Center weighted usually */
+}
+
+.ad-logo {
+    position: absolute;
+    z-index: 20;
+}
+
+.ad-cta {
+    position: absolute;
+    z-index: 20;
+    padding: 10px 20px;
+    background: #000;
+    color: #fff;
+    border-radius: 4px;
+    font-weight: bold;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* --- EDITOR MODAL STYLES --- */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: white;
+    width: 90vw;
+    height: 90vh;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.modal-header {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-body {
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+}
+
+/* Editor Layout */
+.editor-preview-area {
+    flex: 1;
+    background: #f1f5f9;
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: auto;
+    position: relative;
+}
+
+.editor-controls {
+    width: 320px;
+    background: white;
+    border-left: 1px solid var(--border);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* Canvas Wrapper for Overlays */
+.canvas-wrapper {
+    position: relative;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    line-height: 0;
+    /* Important to remove gap */
+}
+
+/* Safe Zone Overlays */
+.safe-zone-overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.75rem;
+    font-weight: 600;
+    pointer-events: none;
+    /* Let clicks pass through */
+    border: 1px dashed rgba(255, 0, 0, 0.3);
+    color: rgba(255, 0, 0, 0.5);
+    background: rgba(255, 0, 0, 0.02);
+}
+
+.top-zone {
+    top: 0;
+    height: 20%;
+    background: rgba(0, 255, 0, 0.05);
+    /* Safe Green hint */
+    border-color: rgba(0, 255, 0, 0.3);
+    color: rgba(0, 100, 0, 0.5);
+}
+
+.bottom-zone {
+    bottom: 0;
+    height: 25%;
+    background: rgba(0, 255, 0, 0.05);
+    border-color: rgba(0, 255, 0, 0.3);
+    color: rgba(0, 100, 0, 0.5);
+}
+
+.product-zone {
+    top: 20%;
+    bottom: 25%;
+    background: rgba(0, 0, 0, 0.03);
+    /* Locked Gray */
+    border-color: rgba(0, 0, 0, 0.1);
+    color: rgba(0, 0, 0, 0.3);
+}
+
+/* Controls Components */
+.control-group label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.btn-group {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.btn-icon {
+    flex: 1;
+    padding: 0.5rem;
+    border: 1px solid var(--border);
+    background: white;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: 0.2s;
+}
+
+.btn-icon:hover,
+.btn-icon.active {
+    background: #e0e7ff;
+    /* light indigo */
+    border-color: var(--primary);
+    color: var(--primary);
+}

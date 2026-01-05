@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Builder | Retail Media Creative AI</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Tool specific overrides */
+        body {
+            overflow: hidden;
+        }
+
+        /* Fix full height app */
+        .navbar {
+            height: 60px;
+        }
+
+        .sidebar {
+            background: white;
+            border-right: 1px solid var(--border);
+            padding: 1.5rem;
+            overflow-y: auto;
+        }
+
+        .main-canvas {
+            background: #f1f5f9;
+            padding: 2rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        /* Tooltip for Compliance */
+        .compliance-tooltip {
+            position: relative;
+            cursor: help;
+        }
+
+        .compliance-tooltip::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 120%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #333;
+            color: #fff;
+            padding: 0.5rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.2s;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .compliance-tooltip:hover::after {
+            opacity: 1;
+            visibility: visible;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="container" style="max-width: 100%;">
+            <a href="index.html" class="logo">
+                <div class="logo-icon"></div>
+                CreativeBuilder <span style="font-weight: 400; color: var(--text-muted); margin-left: 0.5rem;">/
+                    Studio</span>
+            </a>
+            <div>
+                <a href="index.html" class="btn btn-outline"
+                    style="font-size: 0.9rem; padding: 0.5rem 1rem; text-decoration: none; display: inline-block;">Back
+                    to Home</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="tool-layout">
+        <!-- LEFT PANEL: INPUTS -->
+        <aside class="sidebar">
+            <h3 style="margin-bottom: 1.5rem; font-size: 1.1rem;">Configuration</h3>
+
+            <!-- File Upload -->
+            <div class="form-group" style="margin-bottom: 2rem;">
+                <label style="display: block; font-weight: 600; margin-bottom: 0.5rem;">Product Image</label>
+                <div id="dropzone"
+                    style="border: 2px dashed var(--border); padding: 2rem; text-align: center; border-radius: 8px; cursor: pointer; transition: 0.2s;">
+                    <p style="font-size: 0.9rem; color: var(--text-muted);">Click or drag file here</p>
+                    <input type="file" id="imageUpload" accept="image/*" style="display: none;">
+                </div>
+            </div>
+
+            <!-- Brand Info -->
+            <div class="form-group" style="margin-bottom: 1.5rem;">
+                <label style="display: block; font-weight: 600; margin-bottom: 0.5rem;">Brand Name</label>
+                <input type="text" id="brandName" placeholder="e.g. Nike"
+                    style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px;">
+            </div>
+
+            <div class="form-group" style="margin-bottom: 1.5rem;">
+                <label style="display: block; font-weight: 600; margin-bottom: 0.5rem;">Tagline</label>
+                <input type="text" id="tagline" placeholder="Just Do It"
+                    style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px;">
+            </div>
+
+            <!-- CTA Text -->
+            <div class="form-group" style="margin-bottom: 1.5rem;">
+                <label style="display: block; font-weight: 600; margin-bottom: 0.5rem;">CTA Button</label>
+                <input type="text" id="ctaText" value="Shop Now" placeholder="Shop Now"
+                    style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px;">
+            </div>
+
+            <!-- Color Palette -->
+            <div class="form-group" style="margin-bottom: 1.5rem;">
+                <label style="display: block; font-weight: 600; margin-bottom: 0.5rem;">Brand Color</label>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <input type="color" id="brandColor" value="#4f46e5"
+                        style="width: 50px; height: 40px; border: none; padding: 0; background: none; cursor: pointer;">
+                    <span style="font-size: 0.9rem; color: var(--text-muted);">Auto-detected or Custom</span>
+                </div>
+            </div>
+
+            <!-- Retailer -->
+            <div class="form-group" style="margin-bottom: 1.5rem;">
+                <label style="display: block; font-weight: 600; margin-bottom: 0.5rem;">Retailer Channel</label>
+                <select id="retailerSelect"
+                    style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px; background: white;">
+                    <option value="amazon">Amazon (White BG Focus)</option>
+                    <option value="meta">Meta (Lifestyle Focus)</option>
+                    <option value="flipkart">Flipkart (Festive)</option>
+                </select>
+            </div>
+
+            <!-- CTA -->
+            <div class="form-group" style="margin-bottom: 2rem;">
+                <button id="generateBtn" class="btn btn-primary" style="width: 100%; justify-content: center;">
+                    Generate Creatives
+                </button>
+            </div>
+
+        </aside>
+
+        <!-- RIGHT PANEL: OUTPUT -->
+        <main class="main-canvas" id="canvasArea">
+            <div style="text-align: center; margin-top: 4rem; color: var(--text-muted);">
+                <p>Upload a product and click generate to see AI magic.</p>
+            </div>
+        </main>
+    </div>
+
+    <!-- EDITOR MODAL -->
+    <div id="editorModal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Edit Creative <span id="editModeLabel" style="font-weight: 400; color: var(--text-muted);"></span>
+                </h3>
+                <button class="btn btn-outline btn-sm" onclick="closeEditor()">✕</button>
+            </div>
+
+            <div class="modal-body">
+                <!-- PREVIEW CANVAS -->
+                <div class="editor-preview-area">
+                    <div id="editorCanvasWrapper" class="canvas-wrapper">
+                        <!-- Canvas injected here -->
+                        <!-- OVERLAYS -->
+                        <div class="safe-zone-overlay top-zone"><span>Top Safe Zone</span></div>
+                        <div class="safe-zone-overlay product-zone"><span>LOCKED: Product Zone</span></div>
+                        <div class="safe-zone-overlay bottom-zone"><span>Bottom Safe Zone</span></div>
+                    </div>
+                </div>
+
+                <!-- CONTROLS -->
+                <div class="editor-controls">
+
+                    <!-- BRAND -->
+                    <div class="control-group">
+                        <label>Brand Alignment</label>
+                        <div class="btn-group">
+                            <button class="btn-icon" data-align="left"
+                                onclick="updateConfig('brandAlign', 'left')">⬅</button>
+                            <button class="btn-icon" data-align="center"
+                                onclick="updateConfig('brandAlign', 'center')">⬇</button>
+                            <button class="btn-icon" data-align="right"
+                                onclick="updateConfig('brandAlign', 'right')">➡</button>
+                        </div>
+                    </div>
+
+                    <!-- CTA -->
+                    <div class="control-group">
+                        <label>CTA Layout</label>
+                        <div class="btn-group">
+                            <button class="btn-icon" data-cta-layout="left"
+                                onclick="updateConfig('ctaAlign', 'left')">⬅</button>
+                            <button class="btn-icon" data-cta-layout="center"
+                                onclick="updateConfig('ctaAlign', 'center')">⬇</button>
+                            <button class="btn-icon" data-cta-layout="right"
+                                onclick="updateConfig('ctaAlign', 'right')">➡</button>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label>CTA Style</label>
+                        <div class="btn-group">
+                            <button class="btn-sm" onclick="updateConfig('ctaStyle', 'pill')">Pill</button>
+                            <button class="btn-sm" onclick="updateConfig('ctaStyle', 'rect')">Rect</button>
+                        </div>
+                    </div>
+
+                    <!-- TAGLINE -->
+                    <div class="control-group">
+                        <label>Tagline</label>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="taglineToggle" checked
+                                onchange="updateConfig('showTagline', this.checked)">
+                            <span>Visible</span>
+                        </label>
+                    </div>
+
+                    <div
+                        style="margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: 0.5rem;">
+                        <button class="btn btn-outline btn-sm" style="width: 100%; border-style: dashed; opacity: 0.7;"
+                            onclick="resetEditor()">↺ Reset to AI Layout</button>
+                        <div style="display: flex; gap: 10px;">
+                            <button class="btn btn-primary" style="flex: 1" onclick="saveEditor()">Save Changes</button>
+                            <button class="btn btn-outline" onclick="closeEditor()">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
